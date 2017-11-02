@@ -1,0 +1,29 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+    <button onclick="play()" type="button">Click Me</button>
+    <script type="text/javascript">
+
+        function play() {
+            console.log("I'm working");
+            //var u = new SpeechSynthesisUtterance();
+            //u.text = 'Hello World';
+            //u.lang = 'en-US';
+            //u.rate = 1.2;
+            //u.onend = function (event) { alert('Finished in ' + event.elapsedTime + ' seconds.'); }
+            //speechSynthesis.speak(u);
+            if ('speechSynthesis' in window) {
+                var speech = new SpeechSynthesisUtterance('hello baby');
+                speech.lang = 'en-US';
+                window.speechSynthesis.speak(speech);
+            } else console.log("Speech not available");
+        }
+        
+    </script>
+</body>
+</html>
