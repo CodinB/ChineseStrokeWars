@@ -1,0 +1,9 @@
+C:\Users\briun\Dropbox\GitHub\ChineseStrokeWars\HanziScraper\HanziScraper\obj\Debug\HanziScraper.csproj.CoreCompileInputs.cache
+C:\Users\briun\Dropbox\GitHub\ChineseStrokeWars\HanziScraper\HanziScraper\bin\Debug\HanziScraper.exe.config
+C:\Users\briun\Dropbox\GitHub\ChineseStrokeWars\HanziScraper\HanziScraper\bin\Debug\HanziScraper.exe
+C:\Users\briun\Dropbox\GitHub\ChineseStrokeWars\HanziScraper\HanziScraper\bin\Debug\HanziScraper.pdb
+C:\Users\briun\Dropbox\GitHub\ChineseStrokeWars\HanziScraper\HanziScraper\bin\Debug\AngleSharp.dll
+C:\Users\briun\Dropbox\GitHub\ChineseStrokeWars\HanziScraper\HanziScraper\bin\Debug\AngleSharp.xml
+C:\Users\briun\Dropbox\GitHub\ChineseStrokeWars\HanziScraper\HanziScraper\obj\Debug\HanziScraper.csprojResolveAssemblyReference.cache
+C:\Users\briun\Dropbox\GitHub\ChineseStrokeWars\HanziScraper\HanziScraper\obj\Debug\HanziScraper.exe
+C:\Users\briun\Dropbox\GitHub\ChineseStrokeWars\HanziScraper\HanziScraper\obj\Debug\HanziScraper.pdb
