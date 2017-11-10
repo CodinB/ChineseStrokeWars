@@ -14,7 +14,7 @@ namespace HanziScraper
         {
             Console.OutputEncoding = System.Text.Encoding.UTF8;
             var config = Configuration.Default.WithDefaultLoader();
-            var address = "http://www.hanzicraft.com/character/接";
+            var address = "http://www.hanzicraft.com/character/累";
             //var address = "view-source:http://hskhsk.pythonanywhere.com/radicals?hsk=16";
             var document = BrowsingContext.New(config).OpenAsync(address).Result;
             var cellSelector = "div.decomptitle";
