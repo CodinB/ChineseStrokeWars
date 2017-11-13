@@ -20,6 +20,27 @@ namespace HanziScraper
                 document.QuerySelectorAll(cellSelector)// every element that matches the selector
                 .Where(elem => elem.TextContent.StartsWith("Radical"))
                 .First();
+            
+            var resultList =
+               decomptitle.NextElementSibling
+               .Children
+               .Select(node => new CharacterBreakdown
+               {
+                   Component = node.QuerySelector("a").TextContent,
+                   Meaning = Regex.Replace(
+                       node.QuerySelector(".smaller-font").TextContent,
+                       @"^\s*\(|\)\s*$",
+                       ""),
+                   WholeCharacter = character
+
+               })
+               .ToList();
+
+            
+            Console.WriteLine("Whole Character: " + character);
+            return resultList;
+
+           
 
 
             //var parsedItems =
@@ -35,18 +56,7 @@ namespace HanziScraper
             //    })
             //    .ToArray();
 
-            var resultList =
-                decomptitle.NextElementSibling
-                .Children
-                .Select(node => new CharacterBreakdown
-                {
-                    Component = node.QuerySelector("a").TextContent,
-                    Meaning = Regex.Replace(
-                        node.QuerySelector(".smaller-font").TextContent,
-                        @"^\s*\(|\)\s*$",
-                        "")
-                })
-                .ToList();
+
 
             //foreach (var item in parsedItems)
             //{
@@ -66,7 +76,7 @@ namespace HanziScraper
             //    newList.Add(result);
             //}
 
-            return resultList;
+
 
 
             //var outputString =
