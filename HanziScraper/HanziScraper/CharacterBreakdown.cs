@@ -10,6 +10,10 @@ namespace HanziScraper
     {
         public string Component { get; set; }
         public string Meaning { get; set; }
+        public override string ToString()
+        {
+            return $"{Component} {Meaning} ";
+        }
 
     }
 }

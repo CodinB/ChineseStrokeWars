@@ -6,9 +6,9 @@ using System.Text.RegularExpressions;
 
 namespace HanziScraper
 {
-    class Program
+    class CharacterDecomposer
     {
-        public List<CharacterBreakdown> GerCharacterBreakdown(string character)
+        public List<CharacterBreakdown> GetCharacterBreakdown(string character)
         {
             Console.OutputEncoding = System.Text.Encoding.UTF8;
             var config = Configuration.Default.WithDefaultLoader();
@@ -22,31 +22,51 @@ namespace HanziScraper
                 .First();
 
 
-            var parsedItems =
+            //var parsedItems =
+            //    decomptitle.NextElementSibling
+            //    .Children
+            //    .Select(node => new
+            //    {
+            //        Component = node.QuerySelector("a").TextContent,
+            //        Definition = Regex.Replace(
+            //            node.QuerySelector(".smaller-font").TextContent,
+            //            @"^\s*\(|\)\s*$",
+            //            "")
+            //    })
+            //    .ToArray();
+
+            var resultList =
                 decomptitle.NextElementSibling
                 .Children
-                .Select(node => new
+                .Select(node => new CharacterBreakdown
                 {
                     Component = node.QuerySelector("a").TextContent,
-                    Definition = Regex.Replace(
+                    Meaning = Regex.Replace(
                         node.QuerySelector(".smaller-font").TextContent,
                         @"^\s*\(|\)\s*$",
                         "")
                 })
-                .ToArray();
+                .ToList();
 
-            foreach (var item in parsedItems)
-            {
+            //foreach (var item in parsedItems)
+            //{
 
 
-                CharacterBreakdown result = new CharacterBreakdown();
-                result.Meaning = parsedItems.Component;
-                result.Component = parsedItems.Definition;
-                
-                newList.Add(result);
-            }
+            //    CharacterBreakdown result = new CharacterBreakdown();
+            //    result.Meaning = parsedItems
+            //        .Select(node =>
+            //            $"{node.Definition}")
+            //            .ToString();
+            //    result.Component = parsedItems
+            //        .Select(node =>
+            //            $"{node.Component}")
+            //            .ToString();
 
-            return newList;
+
+            //    newList.Add(result);
+            //}
+
+            return resultList;
 
 
             //var outputString =
