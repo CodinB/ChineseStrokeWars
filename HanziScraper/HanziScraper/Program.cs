@@ -1,21 +1,19 @@
 ﻿using AngleSharp;
-using AngleSharp.Dom;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
+
 namespace HanziScraper
 {
     class Program
     {
-        static void Main(string[] args)
+        public List<CharacterBreakdown> GerCharacterBreakdown(string character)
         {
             Console.OutputEncoding = System.Text.Encoding.UTF8;
             var config = Configuration.Default.WithDefaultLoader();
-            var address = "http://www.hanzicraft.com/character/累";
-            //var address = "view-source:http://hskhsk.pythonanywhere.com/radicals?hsk=16";
+            var address = "http://www.hanzicraft.com/character/" + character;
+            var newList = new List<CharacterBreakdown>();
             var document = BrowsingContext.New(config).OpenAsync(address).Result;
             var cellSelector = "div.decomptitle";
             var decomptitle =
@@ -38,20 +36,31 @@ namespace HanziScraper
                 .ToArray();
 
             foreach (var item in parsedItems)
-                Console.WriteLine(item);
+            {
 
 
-            var outputString =
-                String.Join(
-                    ", ",
-                    parsedItems
-                    .Select(node =>
-                        $"{node.Component}: {node.Definition}"
-                    )
-                    .ToArray()
-                );
+                CharacterBreakdown result = new CharacterBreakdown();
+                result.Meaning = parsedItems.Component;
+                result.Component = parsedItems.Definition;
+                
+                newList.Add(result);
+            }
 
-            Console.WriteLine(outputString);
+            return newList;
+
+
+            //var outputString =
+            //    String.Join(
+            //        ", ",
+            //        parsedItems
+            //        .Select(node =>
+            //            $"{node.Component}: {node.Definition}"
+            //        )
+            //        .ToArray()
+            //    );
+
+            //Console.WriteLine(outputString);
+            //Console.ReadLine();
 
 
 
