@@ -1,0 +1,2 @@
+C:\Users\briun\Dropbox\GitHub\ChineseStrokeWars\CharacterDecomposer\CharacterDecomposer\obj\Debug\CharacterDecomposer.csprojResolveAssemblyReference.cache
+C:\Users\briun\Dropbox\GitHub\ChineseStrokeWars\CharacterDecomposer\CharacterDecomposer\obj\Debug\CharacterDecomposer.csproj.CoreCompileInputs.cache

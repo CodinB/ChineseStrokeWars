@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CharacterDecomposer.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -10,7 +11,21 @@ namespace CharacterDecomposer.Controllers
     [RoutePrefix("api/decomposer")]
     public class DecomposerController : ApiController
     {
-        [HttpGet,Route]
-        public List<>
+        readonly DecompService decompService;
+
+        public DecomposerController(DecompService decompService)
+        {
+            this.decompService = decompService;
+        }
+
+        [HttpGet,Route("{character}")]
+        public HttpResponseMessage GetCharacterBreakdown(string character)
+        {
+            ItemsResponse<CharacterBreakdown> itemsResponse = new ItemsResponse<CharacterBreakdown>();
+            itemsResponse.Items = decompService.GetCharacterBreakdown(character);
+
+            return Request.CreateResponse(HttpStatusCode.OK, itemsResponse);
+        }
+            
     }
 }
