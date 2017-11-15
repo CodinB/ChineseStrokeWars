@@ -9,6 +9,7 @@ using System.Web.Http;
 namespace CharacterDecomposer.Controllers
 {
     [RoutePrefix("api/decomposer")]
+    [AllowAnonymous]
     public class DecomposerController : ApiController
     {
         readonly DecompService decompService;
