@@ -11,7 +11,7 @@ namespace HanziScraper
         static void Main(string[] args)
         {
             CharacterDecomposer characterDecomposer = new CharacterDecomposer();
-            var results = characterDecomposer.GetCharacterBreakdown("意");
+            var results = characterDecomposer.GetCharacterBreakdown("藏");
             foreach(var result in results)
             {
                 Console.WriteLine(result);
