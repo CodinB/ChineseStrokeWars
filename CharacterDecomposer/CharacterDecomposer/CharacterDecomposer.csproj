@@ -90,6 +90,8 @@
     <Content Include="Models\AngularService.js" />
     <Content Include="Models\app.js" />
     <Content Include="Models\main.js" />
+    <Content Include="Models\uiRouter.js" />
+    <Content Include="Models\wei.html" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>

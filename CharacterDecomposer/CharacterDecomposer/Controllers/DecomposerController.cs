@@ -14,9 +14,9 @@ namespace CharacterDecomposer.Controllers
     {
         readonly DecompService decompService;
 
-        public DecomposerController(DecompService decompService)
+        public DecomposerController()
         {
-            this.decompService = decompService;
+            this.decompService = new DecompService();
         }
 
         [HttpGet,Route("{character}")]

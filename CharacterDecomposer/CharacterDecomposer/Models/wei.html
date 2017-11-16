@@ -1,0 +1,113 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular.js"></script>
+    <style>
+        body {
+            background-image: url("background.jpg");
+        }
+    </style>
+</head>
+<body ng-app="Decomp" ng-controller="DecomposerController as vm">
+    <ui-view></ui-view>
+    <textarea id="textarea" style="width:200px;height:200px;">输入中文</textarea><br>
+    <button id="playbtn">Enter Chinese Text <i class="fa fa-play" aria-hidden="true"></i></button>
+    <button>Stop <i class="fa fa-stop" aria-hidden="true"></i></button>
+    <div>
+        <pre>{{vm|json}}</pre>
+        <p style="color:white;">Enter A Character To Decompose: </p>
+        <input type="text" ng-model="vm.character" />
+        <button ng-click="vm.submit()">Submit</button>
+    </div>
+
+    <div style="color:white;">
+        <p ng-model="{{vm.characterData.WholeCharacter}}"></p>
+        <ul>
+            <li ng-repeat="component in vm.characterData">{{component.Component}} {{component.Meaning}}</li>
+        </ul>
+    </div>
+    <script type="text/javascript">
+        (function () {
+            angular.module("Decomp", []);
+        })();
+
+        (function () {
+            'use strict';
+            angular.module("Decomp")
+                .controller('DecomposerController', DecomposerController);
+            DecomposerController.$inject = ['$http', 'DecompService'];
+            function DecomposerController($http, DecompService) {
+                var vm = this;
+                vm.submit = _GetCharacterBreakdown;
+                vm.character = "";
+                vm.characterData = null;
+                function _GetCharacterBreakdown() {
+                    console.log("Submit button works")
+                    DecompService
+                        .GetCharacterBreakdown(vm.character)
+                        .then(returnData);
+
+
+                    function returnData(response) {
+                        console.log("reached the promise land");
+                        console.log(response.data);
+                        vm.characterData = response.data;
+                    }
+                }
+
+            }
+        })();
+
+        (function () {
+            'use strict'
+            angular.module("Decomp")
+                .service('DecompService', DecompService);
+
+            DecompService.$inject = ['$http']
+            function DecompService($http) {
+
+                var url = "http://www.hanzicraft.com/character";
+                var svc = this;
+
+                svc.GetCharacterBreakdown = _GetCharacterBreakdown;
+
+                function _GetCharacterBreakdown(character) {
+
+                    var settings = {
+                        url: url + "/" + character,
+                        method: "GET",
+                        cache: false,
+                        withCredentials: true
+                    }
+                    return $http(settings)
+                }
+
+            }
+        })();
+
+        (function () {
+            angular.module("Decomp")
+                .component('decomp', {
+                    templateUrl: '../app_start/main.html',
+                    controller: 'DecomposerController'
+                });
+        })();
+
+        var u = new SpeechSynthesisUtterance();
+        u.lang = 'zh-CN';
+        u.rate = 1.2;
+        document.getElementById('playbtn').onclick = function () {
+            u.text = document.getElementById('textarea').value;
+            var text = document.getElementById('textarea').value;
+
+            speechSynthesis.speak(u);
+        }
+
+            
+
+    </script>
+</body>
+</html>

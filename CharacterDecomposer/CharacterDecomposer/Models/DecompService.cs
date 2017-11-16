@@ -19,6 +19,7 @@ namespace CharacterDecomposer.Models
         //    // 3. store the parameter in the field
         //    this.dataProvider = dataProvider;
         //}
+
         public List<CharacterBreakdown> GetCharacterBreakdown(string character)
         {
             Console.OutputEncoding = System.Text.Encoding.UTF8;

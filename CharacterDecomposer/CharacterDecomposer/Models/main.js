@@ -1,8 +1,9 @@
 ﻿(function () {
-    angular.module("Decomp")
+    angular.module("Decomp", [])
         .component('decomp', {
             templateUrl: '../app_start/main.html',
-            controller: 'DecomposerController'
+            controller: 'DecomposerController',
+            controllerAs: 'vm'
 
         });
 })();
@@ -13,38 +14,30 @@
     angular.module("Decomp")
         .controller('DecomposerController', DecomposerController);
 
-    DecomposerController.$inject = ['$http', 'DecomposeService'];
+    DecomposerController.$inject = ['$http', 'DecompService'];
 
     function DecomposerController($http, DecompService) {
 
         var vm = this;
         vm.submit = _GetCharacterBreakdown;
         vm.character = "";
-        vm.characterData = null;
+        vm.characterData = "";
 
         function _GetCharacterBreakdown() {
+            console.log("Submit button works");
             DecompService
                 .GetCharacterBreakdown(vm.character)
                 .then(returnData);
         }
 
         function returnData(response) {
+            console.log("reached the promise land");
+            console.log(response);
             vm.characterData = response.data;
-            }
         }
 
-        //$http({
-        //    url: 'api/decomposer',
-        //    method: "GET"
-        //})
-        //    .then(_success, _error);
-
-        //function _success(response) {
-        //    vm.characterData = response.data;
-        //}
-
-        //function _error(err) {
-        //    console.log(err)
-        //}
     }
+
+
+       
 })();
