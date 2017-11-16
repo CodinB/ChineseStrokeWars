@@ -1,6 +1,6 @@
 ﻿(function () {
     'use strict'
-    angular.module(Decomp)
+    angular.module("Decomp")
         .service('DecompService', DecompService);
 
     DecompService.$inject = ['$http']

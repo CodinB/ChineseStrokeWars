@@ -88,6 +88,7 @@
     <Content Include="App_Start\main.html" />
     <Content Include="Global.asax" />
     <Content Include="Models\AngularService.js" />
+    <Content Include="Models\app.js" />
     <Content Include="Models\main.js" />
     <Content Include="Web.config" />
   </ItemGroup>

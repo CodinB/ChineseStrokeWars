@@ -21,14 +21,15 @@
 
     <!--</div>-->
     <div>
+        <pre>{{vm|json}}</pre>
+
         <p style="color:white;">Enter A Character To Decompose: </p>
         <input type="text" ng-model="vm.character"/>
         <button ng-click="vm.submit()">Submit</button>
     </div>
 
-    <div>
-        <pre>{{vm|json}}</pre>
-        <p ng-model="vm.characterData.WholeCharacter"></p>
+    <div style="color:white;">
+        <p ng-model="{{vm.characterData.WholeCharacter}}"></p>
         <ul>
             <li ng-repeat="component in vm.characterData">{{component.Component}} {{component.Meaning}}</li>
         </ul>
@@ -36,8 +37,8 @@
 
     <script type="text/javascript">
 
-        var global_words = [];
-        var wordIndex = 0;
+        //var global_words = [];
+        //var wordIndex = 0;
         var u = new SpeechSynthesisUtterance();
         u.lang = 'zh-CN';
         u.rate = 1.2;
@@ -46,9 +47,9 @@
 
             u.text = document.getElementById('textarea').value;
             var text = document.getElementById('textarea').value;
-            var words = text.split(" ");
-            global_words = words;
-            drawTextInPanel(words);
+            //var words = text.split(" ");
+            //global_words = words;
+            //drawTextInPanel(words);
             speechSynthesis.speak(u);
 
             u.onboundary = function (event) {
