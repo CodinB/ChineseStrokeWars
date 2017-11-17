@@ -8,7 +8,50 @@
         body {
             background-image: url("background.jpg");
         }
+
+        .boxed {
+            border: 1px solid green;
+            text-align: center;
+            vertical-align: middle;
+            line-height: 90px;
+            padding: 5px;
+            -webkit-border-radius: 25px;
+            -moz-border-radius: 25px;
+            border-radius: 25px;
+
+        }
+
+        .circle {
+            width: 30px;
+            height: 30px;
+            -webkit-border-radius: 25px;
+            -moz-border-radius: 25px;
+            border-radius: 25px;
+            background: red;
+            text-align: center;
+            vertical-align: middle;
+            line-height: 30px;
+        }
+
+        textarea {
+            box-sizing: padding-box;
+            overflow: hidden;
+            padding: 10px;
+            width: 250px;
+            font-size: 14px;
+            margin: 50px auto;
+            border-radius: 6px;
+            box-shadow: 2px 2px 8px rgba(black, .3);
+            border: 0;
+        }
+
+        .inline{
+            display:inline-block;
+            padding:10px;
+        }
+
     </style>
+    <link href="font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" />
 </head>
 <body ng-app="Decomp">
     <decomp></decomp>

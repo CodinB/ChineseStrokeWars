@@ -23,6 +23,25 @@
         vm.character = "";
         vm.characterData = "";
 
+        vm.speak = _synthesis;
+        vm.refresh = cancel;
+
+        function cancel() {
+            speechSynthesis.cancel();
+        }
+
+        function _synthesis() {
+
+            console.log("speechsynthesis from controller button is working");
+            var u = new SpeechSynthesisUtterance();
+            u.lang = 'zh-CN';
+            u.rate = 1.1;
+
+            u.text = document.getElementById('textarea').value;
+
+            speechSynthesis.speak(u);
+        }
+
         function _GetCharacterBreakdown() {
             console.log("Submit button works");
             DecompService

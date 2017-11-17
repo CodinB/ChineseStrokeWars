@@ -1,41 +1,62 @@
 ﻿
 
-    <ui-view></ui-view>
-    <textarea id="textarea" style="width:200px;height:200px;">输入中文</textarea><br>
-    <button id="playbtn">Enter Chinese Text <i class="fa fa-play" aria-hidden="true"></i></button>
-    <button>Stop <i class="fa fa-stop" aria-hidden="true"></i></button>
+<ui-view></ui-view>
+<!--<textarea id="textarea" style="width:200px;height:200px;">输入中文</textarea><br>-->
+<textarea id="textarea" class='autoExpand' rows='3' data-min-rows='3' placeholder='Enter Chinese Characters'>输入中文</textarea><br>
+<button ng-click="vm.speak()" type="button" class="btn btn-success" id="playbtn">Enter Chinese Text <i class="fa fa-play" aria-hidden="true"></i></button>
+<button ng-click="vm.refresh()" type="button" class="btn btn-success">Refresh Player <i class="fa fa-refresh" aria-hidden="true"></i></button>
 <!--<pre>{{vm|json}}</pre>-->
 
-    <div>
-        <p style="color:white;">Enter A Character To Decompose: </p>
-        <input type="text" ng-model="vm.character" />
-        <button ng-click="vm.submit()">Submit</button>
-    </div>
+<div>
+    <p style="color:white;">Enter A Character To Decompose: </p>
+    <input type="text" ng-model="vm.character" />
+    <button type="button" class="btn btn-success" ng-click="vm.submit()">Submit</button>
+</div>
+<br>
 
-    <div style="color:white;">
-        <p>{{vm.characterData[0].WholeCharacter}}</p>
-        <ul>
-            <li ng-repeat="component in vm.characterData">{{component.Component}} : {{component.Meaning}}</li>
-        </ul>
-    </div>
+<div id ="wholeCharacter" class="boxed" style="width:80px;height:80px;background-color:rgba(0, 0, 0, 0.5);font-size: 50px;color:white;">
+    {{vm.characterData[0].WholeCharacter}}
+</div>
 
-    <script type="text/javascript">
-
-       
-        var u = new SpeechSynthesisUtterance();
-        u.lang = 'zh-CN';
-        u.rate = 1.2;
-
-        document.getElementById('playbtn').onclick = function () {
-
-            u.text = document.getElementById('textarea').value;
-            var text = document.getElementById('textarea').value;
-
-            speechSynthesis.speak(u);
+<div class="inline" ng-repeat="component in vm.characterData" style="color:white;">
+    <p class="circle" >{{component.Component}}</p>
+    <p style="color:white;">{{component.Meaning}}</p>
+</div>
 
 
 
+<script type="text/javascript">
 
-        };
+    $(document)
+        .one('focus.autoExpand', 'textarea.autoExpand', function () {
+            var savedValue = this.value;
+            this.value = '';
+            this.baseScrollHeight = this.scrollHeight;
+            this.value = savedValue;
+        })
+        .on('input.autoExpand', 'textarea.autoExpand', function () {
+            var minRows = this.getAttribute('data-min-rows') | 0, rows;
+            this.rows = minRows;
+            rows = Math.ceil((this.scrollHeight - this.baseScrollHeight) / 16);
+            this.rows = minRows + rows;
+        });
+   
 
-    </script>
+    
+
+    //document.getElementById('playbtn').onclick = function () {
+    //    console.log("speechsynthesis button is working");
+    //    var u = new SpeechSynthesisUtterance();
+    //    u.lang = 'zh-CN';
+    //    u.rate = 1.2;
+
+    //    u.text = document.getElementById('textarea').value;
+
+    //    speechSynthesis.speak(u);
+
+
+
+
+    //};
+
+</script>
