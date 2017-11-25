@@ -18,6 +18,8 @@
 
     function DecomposerController($http, DecompService) {
 
+        introJs().start();
+
         var vm = this;
         vm.submit = _GetCharacterBreakdown;
         vm.character = "";
@@ -32,7 +34,7 @@
 
         function _synthesis() {
 
-            introJs().start();
+            
 
             console.log("speechsynthesis from controller button is working");
             var u = new SpeechSynthesisUtterance();

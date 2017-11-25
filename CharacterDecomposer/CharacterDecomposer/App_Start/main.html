@@ -2,19 +2,19 @@
 
 <ui-view></ui-view>
 <!--<textarea id="textarea" style="width:200px;height:200px;">输入中文</textarea><br>-->
-<textarea id="textarea" data-intro='Hello step one!' class='autoExpand' rows='3' data-min-rows='3' placeholder='Enter Chinese Characters'>输入中文</textarea><br>
-<button ng-click="vm.speak()" type="button" class="btn btn-success" id="playbtn">Enter Chinese Text <i class="fa fa-play" aria-hidden="true"></i></button>
-<button ng-click="vm.refresh()" type="button" class="btn btn-success">Refresh Player <i class="fa fa-refresh" aria-hidden="true"></i></button>
+<textarea data-step="1" data-intro="Welcome to Chinese Stroke Wars! Enter Chinese text here to have it read back aloud" id="textarea" class='autoExpand' rows='3' data-min-rows='3' placeholder='Enter Chinese Characters'>输入中文</textarea><br>
+<button data-step="2" data-intro="After entering Chinese characters, press play" ng-click="vm.speak()" type="button" class="btn btn-success" id="playbtn">Enter Chinese Text <i class="fa fa-play" aria-hidden="true"></i></button>
+<button data-step="3" data-intro="If the player freezes for any reason, press this button to refresh the play queue" ng-click="vm.refresh()" type="button" class="btn btn-success">Refresh Player <i class="fa fa-refresh" aria-hidden="true"></i></button>
 <!--<pre>{{vm|json}}</pre>-->
 
 <div>
     <p style="color:white;">Enter A Character To Decompose: </p>
-    <input type="text" ng-model="vm.character" />
+    <input type="text" ng-model="vm.character" data-step="4" data-intro="Enter a Chinese character here to break character into it's building block components'"/>
     <button type="button" class="btn btn-success" ng-click="vm.submit()">Submit</button>
 </div>
 <br>
 
-<div id ="wholeCharacter" class="boxed" style="width:80px;height:80px;background-color:rgba(0, 0, 0, 0.5);font-size: 50px;color:white;">
+<div data-step="5" data-intro="After clicking the submit button, the decomposed character components will display here" id ="wholeCharacter" class="boxed" style="width:80px;height:80px;background-color:rgba(0, 0, 0, 0.5);font-size: 50px;color:white;">
     {{vm.characterData[0].WholeCharacter}}
 </div>
 
