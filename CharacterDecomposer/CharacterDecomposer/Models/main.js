@@ -32,6 +32,8 @@
 
         function _synthesis() {
 
+            introJs().start();
+
             console.log("speechsynthesis from controller button is working");
             var u = new SpeechSynthesisUtterance();
             u.lang = 'zh-CN';

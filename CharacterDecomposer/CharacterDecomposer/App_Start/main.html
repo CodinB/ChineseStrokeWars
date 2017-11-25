@@ -2,7 +2,7 @@
 
 <ui-view></ui-view>
 <!--<textarea id="textarea" style="width:200px;height:200px;">输入中文</textarea><br>-->
-<textarea id="textarea" class='autoExpand' rows='3' data-min-rows='3' placeholder='Enter Chinese Characters'>输入中文</textarea><br>
+<textarea id="textarea" data-intro='Hello step one!' class='autoExpand' rows='3' data-min-rows='3' placeholder='Enter Chinese Characters'>输入中文</textarea><br>
 <button ng-click="vm.speak()" type="button" class="btn btn-success" id="playbtn">Enter Chinese Text <i class="fa fa-play" aria-hidden="true"></i></button>
 <button ng-click="vm.refresh()" type="button" class="btn btn-success">Refresh Player <i class="fa fa-refresh" aria-hidden="true"></i></button>
 <!--<pre>{{vm|json}}</pre>-->
