@@ -24,6 +24,7 @@
         vm.submit = _GetCharacterBreakdown;
         vm.character = "";
         vm.characterData = "";
+        vm.isLoading = null;
 
         vm.speak = _synthesis;
         vm.refresh = cancel;
@@ -47,6 +48,7 @@
         }
 
         function _GetCharacterBreakdown() {
+            vm.isLoading = true;
             console.log("Submit button works");
             DecompService
                 .GetCharacterBreakdown(vm.character)
@@ -54,6 +56,7 @@
         }
 
         function returnData(response) {
+            vm.isLoading = null;
             console.log("reached the promise land");
             console.log(response);
             vm.characterData = response.data;
