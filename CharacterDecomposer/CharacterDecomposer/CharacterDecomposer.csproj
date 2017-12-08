@@ -86,6 +86,7 @@
   <ItemGroup>
     <Content Include="App_Start\index.html" />
     <Content Include="App_Start\main.html" />
+    <Content Include="App_Start\speechToText.html" />
     <Content Include="Global.asax" />
     <Content Include="Models\AngularService.js" />
     <Content Include="Models\app.js" />
