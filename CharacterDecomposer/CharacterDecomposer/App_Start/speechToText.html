@@ -4,7 +4,7 @@
     <title>Speech</title>
 </head>
 <body>
-
+    <div id="text">Transcript</div>
     <script>
 var recognition = new webkitSpeechRecognition();
 
@@ -12,6 +12,7 @@ recognition.addEventListener('result', e => {
     for (var i = e.resultIndex; i < e.results.length; ++i){
         if (e.results[i].isFinal){
             console.log(e.results[i][0].transcript);
+            $("#text").append(e.results[i][0].transcript);
         }
     }
 });
@@ -20,5 +21,6 @@ recognition.continuous = true;
 recognition.lang = 'en-US';
 recognition.start();
     </script>
+
 </body>
 </html>
