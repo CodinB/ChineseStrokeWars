@@ -12,7 +12,7 @@
 
     <div class="inline">
         <textarea data-step="6" data-intro="Speech-to-text dictations will appear here" id="text" class='autoExpand' rows='3' data-min-rows='3' placeholder='Speech dictation will appear here'></textarea><br>
-        <button data-step="7" data-intro="Press pla, then align microphone with source of Chinese audio" ng-click="vm.speechToText()" type="button" class="btn btn-basic" id="playbtn">Begin Speech-to-text <i class="fa fa-play" aria-hidden="true"></i></button>
+        <button data-step="7" data-intro="Press pla, then align microphone with source of Chinese audio" ng-click="vm.speechToText()" type="button" ng-class="{recording: vm.playerStatus.isActive}" class="btn btn-basic" id="playbtn">Begin Speech-to-text <i class="fa fa-play" aria-hidden="true"></i></button>
         <!--<button data-step="8" data-intro="When you are finished with the speech-to-text dictation, turn off the microphone" ng-click="vm.stopSpeech()" type="button" class="btn btn-basic">Stop Speech-to-text <i class="fa fa-refresh" aria-hidden="true"></i></button>-->
     </div>
 </div>

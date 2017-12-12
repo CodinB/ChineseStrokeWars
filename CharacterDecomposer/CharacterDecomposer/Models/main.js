@@ -31,6 +31,10 @@
         vm.speak = _synthesis;
         vm.refresh = cancel;
         vm.speechToText = _speechToText;
+        vm.playerStatus = {
+            isActive: false
+        };
+
         function _intro() {
             introJs().start()
         }
@@ -70,9 +74,21 @@
             vm.characterData = response.data;
         }
 
+        var recognition;
+
         function _speechToText() {
+
+            if (vm.playerStatus.isActive) {
+                vm.playerStatus.isActive = false;
+                console.log("Turning off microphone");
+                recognition.continuous = false;
+                recognition.stop();
+                return;
+            } 
+
+            recognition = new webkitSpeechRecognition();
             console.log("Speech to text has started")
-            var recognition = new webkitSpeechRecognition();
+
             recognition.addEventListener('result', e => {
                 for (var i = e.resultIndex; i < e.results.length; ++i) {
                     if (e.results[i].isFinal) {
@@ -85,6 +101,8 @@
             recognition.continuous = true;
             recognition.lang = 'zh-CN';
             recognition.start();
+            vm.playerStatus.isActive = true;
+
         }
 
     }
