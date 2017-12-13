@@ -27,14 +27,19 @@
     </div>
     </div>
 
-    <div data-step="5" data-intro="After clicking the submit button, the decomposed character components will display here" id="wholeCharacter" class="boxed" style="width:80px;height:80px;background-color:rgba(0, 0, 0, 0.5);font-size: 50px;color:white;">
-        {{vm.characterData[0].WholeCharacter}}
-    </div>
+    <div class="multipleCharacters">
+   
 
-    <div data-step="6" data-intro="This is where the component decomposition will appear" class="inline" ng-repeat="component in vm.characterData" style="color:white;">
-        <p class="circle">{{component.Component}}</p>
-        <p style="color:white;">{{component.Meaning}}</p>
-    </div>
+        <div ng-repeat="components in vm.characterData">
+            <div data-step="5" data-intro="After clicking the submit button, the decomposed character components will display here" id="wholeCharacter" class="boxed" style="width:80px;height:80px;background-color:rgba(0, 0, 0, 0.5);font-size: 50px;color:white;">
+                {{components[0].WholeCharacter}}
+            </div>
+            <div data-step="6" data-intro="This is where the component decomposition will appear" class="inline" ng-repeat="component in components" style="color:white;">
+                <p class="circle">{{component.Component}}</p>
+                <p style="color:white;">{{component.Meaning}}</p>
+            </div>
+        </div>
+</div>
 
 
 

@@ -20,7 +20,7 @@ namespace CharacterDecomposer.Models
         //    this.dataProvider = dataProvider;
         //}
 
-        public List<CharacterBreakdown> GetCharacterBreakdown(string character)
+        public List<List<CharacterBreakdown>> GetCharacterBreakdown(string character)
         {
             Console.OutputEncoding = System.Text.Encoding.UTF8;
             var config = Configuration.Default.WithDefaultLoader();
@@ -28,28 +28,32 @@ namespace CharacterDecomposer.Models
             var newList = new List<CharacterBreakdown>();
             var document = BrowsingContext.New(config).OpenAsync(address).Result;
             var cellSelector = "div.decomptitle";
-            var decomptitle =
+            var resultList =
                 document.QuerySelectorAll(cellSelector)// every element that matches the selector
                 .Where(elem => elem.TextContent.StartsWith("Radical"))
-                .First();
+                .Select(decomptitle =>
+                   decomptitle.NextElementSibling
+                   .Children
+                   .Select(node => new CharacterBreakdown
+                   {
+                       Component = node.QuerySelector("a").TextContent,
+                       Meaning = Regex.Replace(
+                           node.QuerySelector(".smaller-font").TextContent,
+                           @"^\s*\(|\)\s*$",
+                           ""),
+                       WholeCharacter = decomptitle
+                                        .NextElementSibling
+                                        .ChildNodes
+                                        .Where(c => c.NodeType == AngleSharp.Dom.NodeType.Text)
+                                        .First()
+                                        .TextContent
 
-            var resultList =
-               decomptitle.NextElementSibling
-               .Children
-               .Select(node => new CharacterBreakdown
-               {
-                   Component = node.QuerySelector("a").TextContent,
-                   Meaning = Regex.Replace(
-                       node.QuerySelector(".smaller-font").TextContent,
-                       @"^\s*\(|\)\s*$",
-                       ""),
-                   WholeCharacter = character
 
-               })
-               .ToList();
+                   })
+                   .ToList()
+                )
+                .ToList();
 
-
-            Console.WriteLine("Whole Character: " + character);
             return resultList;
         }
     }
