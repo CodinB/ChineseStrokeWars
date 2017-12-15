@@ -90,6 +90,7 @@
     <Content Include="Global.asax" />
     <Content Include="Models\AngularService.js" />
     <Content Include="Models\app.js" />
+    <Content Include="Models\CeditAngular.js" />
     <Content Include="Models\main.js" />
     <Content Include="Models\testingregex.html" />
     <Content Include="Models\uiRouter.js" />
@@ -99,11 +100,14 @@
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\DecomposerController.cs" />
+    <Compile Include="Controllers\DictionaryController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\CharacterBreakdown.cs" />
     <Compile Include="Models\DecompService.cs" />
+    <Compile Include="Models\Definition.cs" />
+    <Compile Include="Models\DictionaryService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

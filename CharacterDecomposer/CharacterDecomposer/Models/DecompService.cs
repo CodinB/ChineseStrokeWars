@@ -9,17 +9,6 @@ namespace CharacterDecomposer.Models
     public class DecompService
     {
 
-        //// 1. create a readonly field to hold the injected thing
-        //readonly IDataProvider dataProvider;
-
-        //// 2. create a contructor and ask for that thing(s) as parameter
-
-        //public DecompService(IDataProvider dataProvider)
-        //{
-        //    // 3. store the parameter in the field
-        //    this.dataProvider = dataProvider;
-        //}
-
         public List<List<CharacterBreakdown>> GetCharacterBreakdown(string character)
         {
             Console.OutputEncoding = System.Text.Encoding.UTF8;
