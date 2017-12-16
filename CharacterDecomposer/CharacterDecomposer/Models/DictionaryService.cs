@@ -9,10 +9,11 @@ namespace CharacterDecomposer.Models
 {
     public class DictionaryService
     {
-        static void Main(string[] args)
+        Dictionary<string, Definition> traditionalDict = new Dictionary<string, Definition>();
+        Dictionary<string, Definition> simplifiedDict = new Dictionary<string, Definition>();
+        static DictionaryService() 
         {
-            var traditionalDict = new Dictionary<string, Definition>();
-            var simplifiedDict = new Dictionary<string, Definition>();
+           
 
             foreach (var line in File.ReadLines(@"C:\Users\briun\Downloads\C-Cedit-API\cccedict-master\demo\cedict_1_0_ts_utf-8_mdbg\cedict_ts.u8"))
             {
@@ -37,28 +38,12 @@ namespace CharacterDecomposer.Models
                     Definitions = match.Groups[4].Value.Split('/')
                 };
 
-                traditionalDict[traditional] = definition;
-                simplifiedDict[simplified] = definition;
+                //traditionalDict[traditional] = definition;
+                //simplifiedDict[simplified] = definition;
             }
 
 
-            Definition def;
-            if (simplifiedDict.TryGetValue("詞彙判斷任務", out def))
-            {
-                Console.WriteLine(def);
-            }
-            else if (traditionalDict.TryGetValue("詞彙判斷任務", out def))
-            {
-
-                Console.WriteLine(def);
-            }
-            else
-            {
-                Console.WriteLine("Entry Not Found");
-
-            }
-
-            Console.ReadLine();
+           
         }
     }
 }
