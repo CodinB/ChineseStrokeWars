@@ -23,22 +23,37 @@ namespace CharacterDecomposer.Models
                 .Select(decomptitle =>
                    decomptitle.NextElementSibling
                    .Children
-                   .Select(node => new CharacterBreakdown
+                   .Select(node =>
                    {
-                       Component = node.QuerySelector("a").TextContent,
-                       Meaning = Regex.Replace(
-                           node.QuerySelector(".smaller-font").TextContent,
-                           @"^\s*\(|\)\s*$",
-                           ""),
-                       WholeCharacter = decomptitle
-                                        .NextElementSibling
-                                        .ChildNodes
-                                        .Where(c => c.NodeType == AngleSharp.Dom.NodeType.Text)
-                                        .First()
-                                        .TextContent
+                       var componentAElement = node.QuerySelector("a");
 
+                       if (componentAElement == null)
+                       {
+                           return null;
+                       }
+                       else
+                       {
+                           return new CharacterBreakdown
+                           {
+                               Component = componentAElement.TextContent,
+                               Meaning = Regex.Replace(
+                                   node.QuerySelector(".smaller-font").TextContent,
+                                   @"^\s*\(|\)\s*$",
+                                   ""),
+                               WholeCharacter = decomptitle
+                                                .NextElementSibling
+                                                .ChildNodes
+                                                .Where(c => c.NodeType == AngleSharp.Dom.NodeType.Text)
+                                                .First()
+                                                .TextContent
+
+
+                           };
+
+                       }
 
                    })
+                   .Where( x => x != null)
                    .ToList()
                 )
                 .ToList();

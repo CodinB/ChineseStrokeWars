@@ -9,8 +9,8 @@ namespace CharacterDecomposer.Models
 {
     public class DictionaryService
     {
-        Dictionary<string, Definition> traditionalDict = new Dictionary<string, Definition>();
-        Dictionary<string, Definition> simplifiedDict = new Dictionary<string, Definition>();
+        static Dictionary<string, Definition> traditionalDict = new Dictionary<string, Definition>();
+        static Dictionary<string, Definition> simplifiedDict = new Dictionary<string, Definition>();
         static DictionaryService() 
         {
            
@@ -38,8 +38,8 @@ namespace CharacterDecomposer.Models
                     Definitions = match.Groups[4].Value.Split('/')
                 };
 
-                //traditionalDict[traditional] = definition;
-                //simplifiedDict[simplified] = definition;
+                 traditionalDict[traditional] = definition;
+                 simplifiedDict[simplified] = definition;
             }
 
 
