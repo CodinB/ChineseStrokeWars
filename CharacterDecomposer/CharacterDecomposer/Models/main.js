@@ -14,9 +14,9 @@
     angular.module("Decomp")
         .controller('DecomposerController', DecomposerController);
 
-    DecomposerController.$inject = ['$http', 'DecompService'];
+    DecomposerController.$inject = ['$http', 'DecompService', 'DictionaryService'];
 
-    function DecomposerController($http, DecompService) {
+    function DecomposerController($http, DecompService, DictionaryService) {
 
 
         var vm = this;
@@ -34,6 +34,11 @@
         vm.playerStatus = {
             isActive: false
         };
+        vm.ceditDefinition;
+        vm.dictionary = _dictionary;
+        vm.ceditEntry = "";
+
+        
 
         function _intro() {
             introJs().start()
@@ -72,6 +77,23 @@
             console.log("reached the promise land");
             console.log(response);
             vm.characterData = response.data;
+        }
+
+        function _dictionary() {
+            console.log("Dictionary is firing up")
+            vm.isLoading = true;
+            DictionaryService.DictionaryLookUp(vm.ceditEntry)
+                .then(returnDefinition, returnErrorMessage);
+        }
+
+        function returnDefinition(response) {
+            vm.isLoading = null;
+            vm.ceditDefinition = response.data.Romanization + ": " + response.data.Definitions;
+        }
+
+        function returnErrorMessage(response) {
+            vm.isLoading = null;
+            vm.ceditDefinition = response.data.ExceptionMessage;
         }
 
         var recognition;

@@ -1,22 +1,25 @@
 ﻿(function () {
     'use strict'
-    angular.module("Dictionary")
+    angular.module("Decomp")
         .service('DictionaryService', DictionaryService);
 
-    function DictionaryService(entry) {
-        Definition def;
-        if (simplifiedDict.TryGetValue(entry, out def)) {
-            return def;
-        }
-        else if (traditionalDict.TryGetValue(entry, out def)) {
+    DictionaryService.$inject = ['$http']
+    function DictionaryService($http) {
+        var url = "/api/dictionary";
+        var svc = this;
 
-            return def;
-        }
-        else {
-            return "Entry Not Found";
+        svc.DictionaryLookUp = _DictionaryLookUp;
 
-        }
+        function _DictionaryLookUp(entry) {
 
+            var settings = {
+                url: url + "?entry=" + encodeURIComponent(entry),
+                method: "GET",
+                cache: false,
+                withCredentials: true
+            }
+            return $http(settings)
+        }
     }
 })();
 
