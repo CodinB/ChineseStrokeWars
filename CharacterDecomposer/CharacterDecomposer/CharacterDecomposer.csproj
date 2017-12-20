@@ -108,6 +108,8 @@
     <Compile Include="Models\DecompService.cs" />
     <Compile Include="Models\Definition.cs" />
     <Compile Include="Models\DictionaryService.cs" />
+    <Compile Include="Models\HSKScraperService.cs" />
+    <Compile Include="Models\HSKWords.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
