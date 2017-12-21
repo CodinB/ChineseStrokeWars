@@ -22,9 +22,6 @@ namespace CharacterDecomposer.Controllers
         [HttpGet,Route("{character}")]
         public HttpResponseMessage GetCharacterBreakdown(string character)
         {
-            //ItemsResponse<CharacterBreakdown> itemsResponse = new ItemsResponse<CharacterBreakdown>();
-            //itemsResponse.Items = decompService.GetCharacterBreakdown(character);
-
             return Request.CreateResponse(HttpStatusCode.OK, decompService.GetCharacterBreakdown(character));
         }
             

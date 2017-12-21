@@ -9,6 +9,20 @@
             background-image: url("background.jpg");
         }
 
+        .content-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-areas: "left-side right-side"
+
+        }
+        .left-side {
+            padding: 15px;
+            grid-area: left-side;
+        }
+        .right-side {
+            padding: 15px;
+            grid-area: right-side;
+        }
         .boxed {
             border: 1px solid green;
             text-align: center;
@@ -83,5 +97,6 @@
     <script src="../Models/main.js"></script>
     <script src="../Models/CeditAngular.js"></script>
     <script src="../Models/AngularService.js"></script>
+    <script src="../Models/AngularRandom.js"></script>
 </body>
 </html>

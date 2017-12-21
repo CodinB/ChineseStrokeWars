@@ -14,14 +14,14 @@
     angular.module("Decomp")
         .controller('DecomposerController', DecomposerController);
 
-    DecomposerController.$inject = ['$http', 'DecompService', 'DictionaryService'];
+    DecomposerController.$inject = ['$http', 'DecompService', 'DictionaryService', 'HSKScraperService'];
 
-    function DecomposerController($http, DecompService, DictionaryService) {
+    function DecomposerController($http, DecompService, DictionaryService, HSKScraperService) {
 
 
         var vm = this;
 
-        
+
         vm.tutorial = _intro;
         vm.submit = _GetCharacterBreakdown;
         vm.character = "";
@@ -38,7 +38,64 @@
         vm.dictionary = _dictionary;
         vm.ceditEntry = "";
 
-        
+        vm.hskLevel = [];
+        vm.randomWord = null;
+        vm.peek = _peek;
+        vm.nextMatch = _nextMatch;
+        vm.feedAction = _feedAction;
+        vm.score = _score;
+        vm.selectLevel = _selectLevel;
+        vm.nothingChecked = null;
+        vm.show = _show;
+
+        function _selectLevel(hsk) {
+            if (vm.hskLevel.indexOf(hsk) <= -1) {
+                vm.hskLevel.push(hsk)
+
+            } else {
+                for (var i = vm.hskLevel.length - 1; i >= 0; i--) {
+                    if (vm.hskLevel[i] === hsk) {
+                        vm.hskLevel.splice(i, 1);
+                    }
+                }
+            }
+
+            if (vm.hskLevel.length > 0) {
+                HSKScraperService.GetRandomWord(vm.hskLevel)
+                        .then(randomWordSuccess, randomWordFailure)
+            }
+        }
+
+        function randomWordSuccess(response) {
+            console.log("Here is Random Word");
+            vm.randomWord = response.data.Word;
+        }
+
+        function randomWordFailure(response) {
+            console.log(response.data)
+        }
+
+        function _nextMatch() {
+            console.log("Next Match is working")
+            HSKScraperService.GetRandomWord(vm.hskLevel)
+                .then(randomWordSuccess, randomWordFailure)
+        }
+
+        function _peek() {
+            console.log("Working")
+        }
+
+        function _show() {
+
+        }
+
+        function _feedAction() {
+            console.log("Working")
+        }
+
+        function _score() {
+            console.log("Working")
+        }
 
         function _intro() {
             introJs().start()
@@ -106,7 +163,7 @@
                 recognition.continuous = false;
                 recognition.stop();
                 return;
-            } 
+            }
 
             recognition = new webkitSpeechRecognition();
             console.log("Speech to text has started")
@@ -128,5 +185,5 @@
         }
 
     }
-       
+
 })();

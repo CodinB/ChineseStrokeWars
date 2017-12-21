@@ -8,28 +8,29 @@ namespace CharacterDecomposer.Models
 {
     public class HSKScraperService
     {
-        public List<HSKWords> GetHskWords()
+        public HSKWords GetRandomWord(string hskLevel)
         {
-            using (SqlConnection con = new SqlConnection("data source =.;database=HSK1-6_Words; integrated security=SSPI"))
+            using (SqlConnection con = new SqlConnection("data source =.;database=HSKWords; integrated security=SSPI"))
             {
                 con.Open();
 
                 SqlCommand cmd = con.CreateCommand();
+                cmd.CommandType = System.Data.CommandType.StoredProcedure;
                 cmd.CommandText = "Words_Get_Random";
+                cmd.Parameters.AddWithValue("@hskLevel", hskLevel);
 
                 using (SqlDataReader dr = cmd.ExecuteReader())
                 {
-                    List<HSKWords> results = new List<HSKWords>();
-                    while (dr.Read())
+                    if (dr.Read())
                     {
                         HSKWords word = new HSKWords();
-                        word.Id = dr.GetInt32(0);
-                        word.Word = dr.GetString(1);
-                        word.Hsklevel = dr.GetInt32(2);
-
-                        results.Add(word);
+                        word.Word = dr.GetString(0);
+                        return word;
                     }
-                    return results;
+                    else
+                    {
+                        throw new Exception("should never get here");
+                    }
                 }
             }
         }
