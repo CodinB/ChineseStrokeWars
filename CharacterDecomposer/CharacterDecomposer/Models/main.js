@@ -18,14 +18,17 @@
 
     function DecomposerController($http, DecompService, DictionaryService, HSKScraperService) {
 
+      
 
         var vm = this;
 
 
         vm.tutorial = _intro;
         vm.submit = _GetCharacterBreakdown;
+        vm.decompose = _GetCharacterBreakdownTwo;
         vm.character = "";
         vm.characterData = "";
+        vm.componentPinyin = "";
         vm.isLoading = null;
         vm.stopSpeech = _stopSpeech;
         vm.speak = _synthesis;
@@ -37,7 +40,7 @@
         vm.ceditDefinition;
         vm.dictionary = _dictionary;
         vm.ceditEntry = "";
-
+        vm.competitionPinyin = "";
         vm.hskLevel = [];
         vm.randomWord = null;
         vm.peek = _peek;
@@ -62,13 +65,35 @@
 
             if (vm.hskLevel.length > 0) {
                 HSKScraperService.GetRandomWord(vm.hskLevel)
-                        .then(randomWordSuccess, randomWordFailure)
+                    .then(randomWordSuccess, randomWordFailure)
             }
         }
 
         function randomWordSuccess(response) {
             console.log("Here is Random Word");
             vm.randomWord = response.data.Word;
+            DictionaryService.DictionaryLookUp(vm.randomWord)
+                .then(returnPinyin, returnError);
+        }
+
+        function returnError(response) {
+            vm.competitionPinyin = response.data.ExceptionMessage;
+        }
+
+        function returnPinyin(response) {
+            vm.competitionPinyin = response.data.Romanization + ": " + response.data.Definitions;
+        }
+
+        function _dictionary() {
+            console.log("Dictionary is firing up")
+            vm.isLoading = true;
+            DictionaryService.DictionaryLookUp(vm.ceditEntry)
+                .then(returnDefinition, returnErrorMessage);
+        }
+
+        function returnDefinition(response) {
+            vm.isLoading = null;
+            vm.ceditDefinition = response.data.Romanization + ": " + response.data.Definitions;
         }
 
         function randomWordFailure(response) {
@@ -77,15 +102,24 @@
 
         function _nextMatch() {
             console.log("Next Match is working")
+            $("#competitionCharacter").hide();
             HSKScraperService.GetRandomWord(vm.hskLevel)
                 .then(randomWordSuccess, randomWordFailure)
         }
 
-        function _peek() {
-            console.log("Working")
+        function _show() {
+            console.log("Show is Working")
+            $("#competitionCharacter").show();
         }
 
-        function _show() {
+        function fadeOutAfter() {
+            console.log("Fading out soon");
+            $("#competitionCharacter").fadeOut(1000);
+        }
+
+        function _peek() {
+            console.log("Fading In");
+            $("#competitionCharacter").fadeIn(2000, fadeOutAfter)
 
         }
 
@@ -94,7 +128,22 @@
         }
 
         function _score() {
-            console.log("Working")
+            if ($("#component")) {
+                console.log($("#component").text())
+                var component = $("#component").text();
+                DictionaryService.DictionaryLookUp(component)
+                    .then(returnComponentPinyin, returnErrorPinyin);
+            }
+            
+        }
+
+        function returnComponentPinyin(response) {
+            $("#componentPinyin").text(response.data.Romanization)
+        }
+
+        function returnErrorPinyin(response) {
+            vm.isLoading = null;
+            $("#componentPinyin").text(response.data.ExceptionMessage);
         }
 
         function _intro() {
@@ -134,23 +183,29 @@
             console.log("reached the promise land");
             console.log(response);
             vm.characterData = response.data;
+            //vm.componentPinyin = response.data.Component;
         }
 
-        function _dictionary() {
-            console.log("Dictionary is firing up")
-            vm.isLoading = true;
-            DictionaryService.DictionaryLookUp(vm.ceditEntry)
-                .then(returnDefinition, returnErrorMessage);
-        }
 
-        function returnDefinition(response) {
-            vm.isLoading = null;
-            vm.ceditDefinition = response.data.Romanization + ": " + response.data.Definitions;
-        }
 
         function returnErrorMessage(response) {
             vm.isLoading = null;
             vm.ceditDefinition = response.data.ExceptionMessage;
+        }
+
+        function _GetCharacterBreakdownTwo() {
+            var character = $("#competitionCharacter").text();
+            DecompService
+                .GetCharacterBreakdown(character)
+                .then(returnDataTwo);
+
+        }
+
+        function returnDataTwo(response) {
+            vm.isLoading = null;
+            console.log("reached the promise land");
+            console.log(response);
+            vm.characterData = response.data;
         }
 
         var recognition;

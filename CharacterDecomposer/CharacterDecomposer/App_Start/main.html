@@ -47,8 +47,9 @@
                     {{components[0].WholeCharacter}}
                 </div>
                 <div data-step="6" data-intro="This is where the component decomposition will appear" class="inline" ng-repeat="component in components" style="color:white;">
-                    <p class="circle">{{component.Component}}</p>
+                    <p id="component" class="circle">{{component.Component}}</p>
                     <p style="color:white;">{{component.Meaning}}</p>
+                    <p id="componentPinyin">Pinyin</p>
                 </div>
             </div>
         </div>
@@ -191,13 +192,14 @@
 
     </div>
     <div class="right-side">
-        <textarea id="textarea" style="font-size:50px; width:850px; height:200px" class='autoExpand' placeholder='Pinyin and Definition'></textarea><br>
-        <textarea id="textarea" style="font-size:200px; width:850px; height:450px" class='autoExpand' placeholder='请稍等'>{{vm.randomWord}}</textarea><br>
+        <textarea id="textarea" style="font-size:50px; width:850px; height:300px" class='autoExpand competitionBox' placeholder='Pinyin and Definition'>{{vm.competitionPinyin}}</textarea><br>
+        <div style="font-size:200px; width:850px; height:450px; color:black; background-color:white" class='autoExpand competitionBox' placeholder='请稍等'><p hidden id="competitionCharacter">{{vm.randomWord}}</p></div><br>
         <button type="button" class="btn btn-success" style="margin-top:5px;" ng-click="vm.peek()">Peek</button>
         <button type="button" class="btn btn-basic" style="margin-top:5px;" ng-click="vm.show()">Show</button>
         <button type="button" class="btn btn-warning" style="margin-top:5px;" ng-click="vm.nextMatch()">Next Match</button>
         <!--<button type="button" class="btn btn-danger" style="margin-top:5px;" ng-click="vm.feedAction()">Start/Pause Feed</button>-->
         <button type="button" class="btn btn-info" style="margin-top:5px;" ng-click="vm.score()">Score</button>
+        <button id="decomposeBtn" type="button" class="btn btn-danger" style="margin-top:5px;" ng-click="vm.decompose()">Decompose</button>
         <label style="color:white;" class="checkbox-inline"><input type="checkbox" ng-click="vm.selectLevel(1)">HSK 1</label>
         <label style="color:white;" class="checkbox-inline"><input type="checkbox" ng-click="vm.selectLevel(2)">HSK 2</label>
         <label style="color:white;" class="checkbox-inline"><input type="checkbox" ng-click="vm.selectLevel(3)">HSK 3</label>
